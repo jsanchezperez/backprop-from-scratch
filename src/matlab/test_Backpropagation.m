@@ -48,6 +48,7 @@ legend(sprintf('\\alpha = %g', alpha1), sprintf('\\alpha = %g', alpha2),sprintf(
 %% MNIST
 
 % MNIST handwritten digits with a 784-30-10 network
+download_mnist('mnist');                               % downloaded on the first run only
 files = {'mnist/train-images-idx3-ubyte', 'mnist/train-labels-idx1-ubyte', ...
             'mnist/t10k-images-idx3-ubyte', 'mnist/t10k-labels-idx1-ubyte'};
 [X, labels] = read_mnist(files{1}, files{2});    % 60000 images

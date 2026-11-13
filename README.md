@@ -14,13 +14,14 @@ The Python code is a line-by-line translation of the MATLAB code.
 
 ## Contents
 
-| File (in `code/`) | Description |
+| File (in `src/matlab/` and `src/python/`) | Description |
 |---|---|
 | `XOR_FNN_SGD.m` / `.py` | XOR with a 2-2-1 network, one sample at a time (SGD). |
 | `XOR_FNN_batch.m` / `.py` | XOR with the full batch in matrix form. |
 | `Backpropagation.m` / `.py` | Generic training function for fully connected networks with L layers. |
 | `predict.m` | Forward pass of a trained network (in Python, inside `Backpropagation.py`). |
 | `read_mnist.m` | Reader for the MNIST files (in Python, inside `Backpropagation.py`). |
+| `download_mnist.m` | Downloads and uncompresses MNIST (in Python, inside `Backpropagation.py`). |
 | `test_Backpropagation.m` / `.py` | Experiments: two concentric rings and MNIST. |
 
 ## Requirements
@@ -30,16 +31,16 @@ The Python code is a line-by-line translation of the MATLAB code.
 
 ## Usage
 
-Run the programs from the `code/` folder.
+Run each program from its own folder.
 
 ```
-cd code
+cd src/python
 python XOR_FNN_SGD.py
 python XOR_FNN_batch.py
 python test_Backpropagation.py
 ```
 
-In MATLAB or Octave, change to `code/` and type the script name, for example
+In MATLAB or Octave, change to `src/matlab/` and type the script name, for example
 `XOR_FNN_SGD`.
 
 The generic function has the same interface in both languages:
@@ -55,8 +56,12 @@ and biases of each layer and the mean loss of each epoch.
 
 ### MNIST
 
-The MNIST files are not included. Download them, uncompress them and place them in
-`code/mnist/` with these names:
+The MNIST files are not included in the repository. The experiments download and
+uncompress them automatically the first time they run (about 11 MB compressed, 55 MB
+on disk) and save them in a `mnist/` folder next to the code. Later runs reuse them.
+
+If the download fails, get the four files by hand, uncompress them and place them in
+that `mnist/` folder with these names:
 
 ```
 train-images-idx3-ubyte
@@ -64,6 +69,9 @@ train-labels-idx1-ubyte
 t10k-images-idx3-ubyte
 t10k-labels-idx1-ubyte
 ```
+
+The MNIST experiment trains a 784-30-10 network three times for 100 epochs, so it takes
+several minutes.
 
 ### A note on XOR
 

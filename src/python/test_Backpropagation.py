@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from Backpropagation import Backpropagation, predict, read_mnist
+from Backpropagation import Backpropagation, predict, read_mnist, download_mnist
 
 # %% Two concentric rings
 
@@ -49,6 +49,7 @@ plt.legend([r'$\alpha$ = %g' % alpha1, r'$\alpha$ = %g' % alpha2, r'$\alpha$ = %
 # %% MNIST
 
 # MNIST handwritten digits with a 784-30-10 network
+download_mnist('mnist')                                 # downloaded on the first run only
 files = ['mnist/train-images-idx3-ubyte', 'mnist/train-labels-idx1-ubyte',
             'mnist/t10k-images-idx3-ubyte', 'mnist/t10k-labels-idx1-ubyte']
 X, labels = read_mnist(files[0], files[1])     # 60000 images

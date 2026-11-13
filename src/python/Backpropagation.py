@@ -1,3 +1,7 @@
+import os
+import gzip
+import shutil
+import urllib.request
 import numpy as np
 
 
@@ -93,3 +97,38 @@ def read_mnist(image_file, label_file):
         np.fromfile(f, dtype='>i4', count=2)         # magic number, M
         labels = np.fromfile(f, dtype=np.uint8).reshape(1, -1).astype(float)
     return X, labels
+
+
+def download_mnist(folder='mnist'):
+    """Downloads and uncompresses the four MNIST files into `folder`.
+    Files that are already there are not downloaded again.
+    """
+    names = ['train-images-idx3-ubyte', 'train-labels-idx1-ubyte',
+             't10k-images-idx3-ubyte', 't10k-labels-idx1-ubyte']
+    # Mirrors of the original files, tried in this order
+    mirrors = ['https://ossci-datasets.s3.amazonaws.com/mnist/',
+               'https://storage.googleapis.com/cvdf-datasets/mnist/',
+               'https://raw.githubusercontent.com/fgnt/mnist/master/']
+    os.makedirs(folder, exist_ok=True)
+    for name in names:
+        target = os.path.join(folder, name)
+        if os.path.exists(target):
+            continue
+        done = False
+        for mirror in mirrors:
+            url = mirror + name + '.gz'
+            try:
+                print('Downloading %s' % url)
+                urllib.request.urlretrieve(url, target + '.gz')
+                with gzip.open(target + '.gz', 'rb') as fin, open(target, 'wb') as fout:
+                    shutil.copyfileobj(fin, fout)
+                os.remove(target + '.gz')
+                done = True
+                break
+            except Exception:
+                for f in (target + '.gz', target):
+                    if os.path.exists(f):
+                        os.remove(f)
+        if not done:
+            raise RuntimeError('Could not download %s. Download it by hand and save it in "%s".'
+                               % (name, folder))
