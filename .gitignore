@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.DS_Store
+*.asv
+code/mnist/*
+!code/mnist/README.md

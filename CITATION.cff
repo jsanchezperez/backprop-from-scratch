@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite it as below."
+title: "Backpropagation from scratch: a dense neural network engine in MATLAB and Python"
+authors:
+  - family-names: "Sánchez"
+    given-names: "Javier"
+    affiliation: "Universidad de Las Palmas de Gran Canaria"
+license: MIT
+repository-code: "https://github.com/jsanchezperez/backprop-from-scratch"
+date-released: 2026-11-13
